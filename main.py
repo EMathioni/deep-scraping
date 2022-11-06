@@ -1,6 +1,6 @@
 import csv
 
-import bs4
+from bs4 import BeautifulSoup as bsp
 import requests
 
 from constants import contants as cts
@@ -19,10 +19,9 @@ def start_scraping():
         query = str(input("Type your search: ")).replace(" ", "+")
         date = str(input("Type amount days to filter: ")).strip()
         url_search = scraping_opt(query, date)
-        print(url_search)
         print('Searching results...')
         request_url = requests.get(url_search)
-        soup = bs4.BeautifulSoup(request_url.text, 'html.parser')
+        soup = bsp(request_url.text, 'html.parser')
         no_result = soup.find('p', id='noResults')
         if no_result:
             print("\nNothing found to '{}'".format(query))
@@ -87,7 +86,7 @@ def choice_option():
     option = str(input('#> ')).lower().strip()
     if option == 'y':
         return True
-    elif option == 'n':
+    if option == 'n':
         return False
     return None
 
@@ -106,7 +105,7 @@ def save_to_csv(results, query):
 
 
 def scraping_opt(query, date):
-    if date is '':
+    if date is None:
         print('If you leave it blank, the result will be all the time. '
               'Do you sure wanna proceed? y/n')
         option = choice_option()
