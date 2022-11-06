@@ -19,7 +19,6 @@ def start_scraping():
         query = str(input("Type your search: ")).replace(" ", "+")
         date = str(input("Type amount days to filter: ")).strip()
         url_search = scraping_opt(query, date)
-        print(url_search)
         print('Searching results...')
         request_url = requests.get(url_search)
         soup = bsp(request_url.text, 'html.parser')
