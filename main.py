@@ -105,7 +105,7 @@ def save_to_csv(results, query):
 
 
 def scraping_opt(query, date):
-    if date is None:
+    if date.strip() is '':
         print('If you leave it blank, the result will be all the time. '
               'Do you sure wanna proceed? y/n')
         option = choice_option()
